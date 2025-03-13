@@ -326,13 +326,17 @@ class Synthesizer(nn.Module):
             raise ValueError(
                 "You need to define either `text` (for sythesis) or a `reference_wav` (for voice conversion) to use the Coqui TTS API."
             )
+        
+        if language_name:
+            self.seg = self._get_segmenter(language_name)
+            logger.info("Segmenter set to %s.", language_name)
 
         if text:
             sens = [text]
             if split_sentences:
                 sens = self.split_into_sentences(text)
-                logger.info("Text split into sentences.")
-            logger.info("Input: %s", sens)
+            #     logger.info("Text split into sentences.")
+            # logger.info("Input: %s", sens)
 
         # handle multi-speaker
         if "voice_dir" in kwargs:

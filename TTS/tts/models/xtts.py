@@ -501,7 +501,7 @@ class Xtts(BaseTTS):
         do_sample=True,
         num_beams=1,
         speed=1.0,
-        enable_text_splitting=False,
+        enable_text_splitting=True,
         **hf_generate_kwargs,
     ):
         language = language.split("-")[0]  # remove the country code
@@ -510,6 +510,9 @@ class Xtts(BaseTTS):
         speaker_embedding = speaker_embedding.to(self.device)
         if enable_text_splitting:
             text = split_sentence(text, language, self.tokenizer.char_limits[language])
+            logger.info("Ensure each sentence split from the text is less than 250 characters")
+            logger.info("number of sentences: %d", len(text))
+            logger.info("Output: %s", text)
         else:
             text = [text]
 

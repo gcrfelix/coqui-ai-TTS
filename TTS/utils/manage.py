@@ -351,10 +351,10 @@ class ModelManager:
     def create_dir_and_download_model(self, model_name: str, model_item: ModelItem, output_path: Path) -> None:
         output_path.mkdir(exist_ok=True, parents=True)
         # handle TOS
-        if not self.tos_agreed(model_item, output_path):
-            if not self.ask_tos(output_path):
-                output_path.rmdir()
-                raise Exception(" [!] You must agree to the terms of service to use this model.")
+        # if not self.tos_agreed(model_item, output_path):
+        #     if not self.ask_tos(output_path):
+        #         output_path.rmdir()
+        #         raise Exception(" [!] You must agree to the terms of service to use this model.")
         logger.info("Downloading model to %s", output_path)
         try:
             if "fairseq" in model_name:
@@ -405,7 +405,10 @@ class ModelManager:
         """
         model_item, model_full_name, model, md5sum = self._set_model_item(model_name)
         # set the model specific output path
-        output_path = Path(self.output_prefix) / model_full_name
+        # output_path = Path(self.output_prefix) / model_full_name
+        output_path = Path("models/TTS/XTTS-v2")
+        logger.info("set xtts model output path: %s", output_path)
+        
         if output_path.is_dir():
             if md5sum is not None:
                 md5sum_file = output_path / "hash.md5"
