@@ -327,9 +327,9 @@ class Synthesizer(nn.Module):
                 "You need to define either `text` (for sythesis) or a `reference_wav` (for voice conversion) to use the Coqui TTS API."
             )
         
-        if language_name:
-            self.seg = self._get_segmenter(language_name)
-            logger.info("Segmenter set to %s.", language_name)
+        # if language_name:
+        #     self.seg = self._get_segmenter(language_name)
+        #     logger.info("Segmenter set to %s.", language_name)
 
         if text:
             sens = [text]
